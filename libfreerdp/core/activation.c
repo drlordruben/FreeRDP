@@ -278,6 +278,10 @@ BOOL rdp_recv_deactivate_all(rdpRdp* rdp, wStream* s)
 {
 	UINT16 lengthSourceDescriptor;
 
+	if (rdp->state == CONNECTION_STATE_ACTIVE)
+	{
+		rdp->deact_react = TRUE;
+	}
 	/*
 	 * Windows XP can send short DEACTIVATE_ALL PDU that doesn't contain
 	 * the following fields.

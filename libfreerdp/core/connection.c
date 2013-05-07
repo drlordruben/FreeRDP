@@ -583,8 +583,9 @@ BOOL rdp_client_connect_finalize(rdpRdp* rdp)
 		return FALSE;
 	if (!rdp_send_client_control_pdu(rdp, CTRLACTION_REQUEST_CONTROL))
 		return FALSE;
-	if (!rdp_send_client_persistent_key_list_pdu(rdp))
-		return FALSE;
+	if (!rdp->deact_react)
+		if (!rdp_send_client_persistent_key_list_pdu(rdp))
+			return FALSE;
 	if (!rdp_send_client_font_list_pdu(rdp, FONTLIST_FIRST | FONTLIST_LAST))
 		return FALSE;
 
